@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { Toaster } from "sonner";
+import { Toaster } from "./components/ui/sonner";
 import DashboardShell from "./components/DashboardShell";
 import ServerPicker from "./pages/ServerPicker";
 import Overview from "./pages/Overview";
