@@ -1,0 +1,65 @@
+import axios from "axios";
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+export const API = `${BACKEND_URL}/api`;
+export const http = axios.create({ baseURL: API });
+
+const g = (gid, path) => `/guilds/${gid}${path}`;
+
+export const api = {
+  health: () => http.get("/health").then((r) => r.data),
+  guilds: () => http.get("/guilds").then((r) => r.data),
+  guild: (gid) => http.get(g(gid, "")).then((r) => r.data),
+  channels: (gid) => http.get(g(gid, "/channels")).then((r) => r.data),
+  roles: (gid) => http.get(g(gid, "/roles")).then((r) => r.data),
+  stats: (gid) => http.get(g(gid, "/stats")).then((r) => r.data),
+  cases: (gid) => http.get(g(gid, "/cases")).then((r) => r.data),
+  getMod: (gid) => http.get(g(gid, "/moderation")).then((r) => r.data),
+  putMod: (gid, body) => http.put(g(gid, "/moderation"), body).then((r) => r.data),
+  getAutomod: (gid) => http.get(g(gid, "/automod")).then((r) => r.data),
+  createAutomod: (gid, body) => http.post(g(gid, "/automod"), body).then((r) => r.data),
+  updateAutomod: (gid, id, body) => http.put(g(gid, `/automod/${id}`), body).then((r) => r.data),
+  deleteAutomod: (gid, id) => http.delete(g(gid, `/automod/${id}`)).then((r) => r.data),
+  getWG: (gid, kind) => http.get(g(gid, `/${kind}`)).then((r) => r.data),
+  putWG: (gid, kind, body) => http.put(g(gid, `/${kind}`), body).then((r) => r.data),
+  panels: (gid) => http.get(g(gid, "/ticket-panels")).then((r) => r.data),
+  panelDefaults: (gid) => http.get(g(gid, "/ticket-panels/defaults")).then((r) => r.data),
+  createPanel: (gid, body) => http.post(g(gid, "/ticket-panels"), body).then((r) => r.data),
+  updatePanel: (gid, id, body) => http.put(g(gid, `/ticket-panels/${id}`), body).then((r) => r.data),
+  deletePanel: (gid, id) => http.delete(g(gid, `/ticket-panels/${id}`)).then((r) => r.data),
+  deployPanel: (gid, id) => http.post(g(gid, `/ticket-panels/${id}/deploy`)).then((r) => r.data),
+  tickets: (gid) => http.get(g(gid, "/tickets")).then((r) => r.data),
+  aiPreview: (gid, body) => http.post(g(gid, "/ai/preview"), body).then((r) => r.data),
+  aiSetup: (gid, body) => http.post(g(gid, "/ai/setup"), body).then((r) => r.data),
+  aiApply: (gid, body) => http.post(g(gid, "/ai/apply"), body).then((r) => r.data),
+  getLogging: (gid) => http.get(g(gid, "/logging")).then((r) => r.data),
+  putLogging: (gid, body) => http.put(g(gid, "/logging"), body).then((r) => r.data),
+  getVerify: (gid) => http.get(g(gid, "/verification")).then((r) => r.data),
+  putVerify: (gid, body) => http.put(g(gid, "/verification"), body).then((r) => r.data),
+  deployVerify: (gid) => http.post(g(gid, "/verification/deploy")).then((r) => r.data),
+  getRaid: (gid) => http.get(g(gid, "/raid")).then((r) => r.data),
+  putRaid: (gid, body) => http.put(g(gid, "/raid"), body).then((r) => r.data),
+  getAuto: (gid) => http.get(g(gid, "/auto-roles")).then((r) => r.data),
+  putAuto: (gid, body) => http.put(g(gid, "/auto-roles"), body).then((r) => r.data),
+  getStar: (gid) => http.get(g(gid, "/starboard")).then((r) => r.data),
+  putStar: (gid, body) => http.put(g(gid, "/starboard"), body).then((r) => r.data),
+  announcementDefaults: (gid) => http.get(g(gid, "/announcements/defaults")).then((r) => r.data),
+  sendAnnouncement: (gid, body) => http.post(g(gid, "/announcements/send"), body).then((r) => r.data),
+  listAnnouncements: (gid) => http.get(g(gid, "/announcements")).then((r) => r.data),
+  ccs: (gid) => http.get(g(gid, "/custom-commands")).then((r) => r.data),
+  createCC: (gid, body) => http.post(g(gid, "/custom-commands"), body).then((r) => r.data),
+  updateCC: (gid, id, body) => http.put(g(gid, `/custom-commands/${id}`), body).then((r) => r.data),
+  deleteCC: (gid, id) => http.delete(g(gid, `/custom-commands/${id}`)).then((r) => r.data),
+  automationSchema: (gid) => http.get(g(gid, "/automations/schema")).then((r) => r.data),
+  automations: (gid) => http.get(g(gid, "/automations")).then((r) => r.data),
+  createAutomation: (gid, body) => http.post(g(gid, "/automations"), body).then((r) => r.data),
+  updateAutomation: (gid, id, body) => http.put(g(gid, `/automations/${id}`), body).then((r) => r.data),
+  deleteAutomation: (gid, id) => http.delete(g(gid, `/automations/${id}`)).then((r) => r.data),
+  giveaways: (gid) => http.get(g(gid, "/giveaways")).then((r) => r.data),
+  giveawayDefaults: (gid) => http.get(g(gid, "/giveaways/defaults")).then((r) => r.data),
+  createGiveaway: (gid, body) => http.post(g(gid, "/giveaways"), body).then((r) => r.data),
+  endGiveaway: (gid, id) => http.post(g(gid, `/giveaways/${id}/end`)).then((r) => r.data),
+  rerollGiveaway: (gid, id) => http.post(g(gid, `/giveaways/${id}/reroll`)).then((r) => r.data),
+};
+
+export default api;
